@@ -7,8 +7,10 @@ import random
 class MainMenu:
     def __init__(self):
         bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
-
+        font = pygame.font.Font('data/fonts/impact.ttf', 50)
+        text = font.render('Enter "Space" to start game!', True, pygame.Color('white'))
         screen.blit(bg, (0, 0))
+        screen.blit(text, (70, 250))
 
 
 class Game:
