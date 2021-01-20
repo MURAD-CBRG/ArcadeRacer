@@ -13,6 +13,11 @@ class MainMenu:
         screen.blit(text, (70, 250))
 
 
+class Shop:
+    def __init__(self):
+        pass
+
+
 class Game:
     def __init__(self):
         self.all_sprites = pygame.sprite.Group()
@@ -21,6 +26,7 @@ class Game:
         self.player.image = load_image('player5.jpg', [90, 130])
         self.player.rect = self.player.image.get_rect()
         self.player.rect.x, self.player.rect.y = 300, 300
+        self.player.mask = pygame.mask.from_surface(self.player.image)  ##
 
         self.is_move = [False, False]
 
@@ -42,14 +48,20 @@ class Game:
             self.box_base[-1].image = load_image('box1.jpg', [55, 55])
             self.box_base[-1].rect = self.box_base[-1].image.get_rect()
             self.box_base[-1].rect.x, self.box_base[-1].rect.y = random.randint(0, 700), random.randint(0, 0)
+            self.box_base[-1].mask = pygame.mask.from_surface(self.box_base[-1].image)  ##
             self.all_sprites.add(self.box_base[-1])
             self.render_counter = int()
+
             if self.render_speed > 60:
                 self.render_speed -= 10
             if self.speed_y < 12:
                 self.speed_y += 1
 
+        flag = False
+
         for i in range(len(self.box_base)):
+            if pygame.sprite.collide_mask(self.player, self.box_base[i]):
+                flag = True
             self.box_base[i].rect.y += self.speed_y
 
         if self.is_move[0]:
@@ -61,12 +73,22 @@ class Game:
 
         self.all_sprites.draw(screen)
 
+        if flag:
+            global controller
+            global scene
+            controller = 2
+            scene = GameOver()
+
 
 class GameOver:
     def __init__(self):
         bg = load_image('game_over_bg.jpg', SCREEN_SIZE)
 
+        font = pygame.font.Font('data/fonts/impact.ttf', 36)
+        text = font.render('Game Over! Enter "Space" to go to main menu!', True, pygame.Color('white'))
+
         screen.blit(bg, (0, 0))
+        screen.blit(text, (15, 250))
 
 
 def load_image(name, size=False, rotate=False):
@@ -114,6 +136,9 @@ if __name__ == '__main__':
                     if controller == 0:
                         controller = 1
                         scene = Game()
+                    if controller == 2:
+                        controller = 0
+                        scene = MainMenu()
             if i.type == pygame.KEYUP:
                 if controller == 1:
                     if i.key == pygame.K_LEFT:
