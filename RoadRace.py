@@ -18,12 +18,40 @@ class MainMenu:
 
 class Shop:
     def __init__(self):
-        pass
+        self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
+        self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
+        self.text1 = self.font.render('The game you must control', True, pygame.Color('white'))
+
+        self.manager = pygame_gui.UIManager((700, 600))
+
+        self.main_menu_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((290, 400), (100, 50)),
+            text='Back',
+            manager=self.manager
+        )
+
+        screen.blit(self.bg, (0, 0))
+        screen.blit(self.text1, (80, 50))
 
 
 class Info:
     def __init__(self):
-        pass
+        self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
+        self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
+        self.text1 = self.font.render('The game you must control', True, pygame.Color('white'))
+        self.text2 = self.font.render('with Marks on keyboard', True, pygame.Color('white'))
+
+        self.manager = pygame_gui.UIManager((700, 600))
+
+        self.main_menu_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((290, 400), (100, 50)),
+            text='Back',
+            manager=self.manager
+        )
+
+        screen.blit(self.bg, (0, 0))
+        screen.blit(self.text1, (80, 150))
+        screen.blit(self.text2, (120, 200))
 
 
 class Game:
@@ -153,10 +181,23 @@ if __name__ == '__main__':
         )
 
         exit_btn = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((290, 300), (100, 50)),
+            relative_rect=pygame.Rect((290, 400), (100, 50)),
             text='Exit',
             manager=manager
         )
+
+        info_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((290, 350), (100, 50)),
+            text='Info',
+            manager=manager
+        )
+
+        shop_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((290, 300), (100, 50)),
+            text='Shop',
+            manager=manager
+        )
+
     elif controller == 1:
         scene = Game()
     elif controller == 2:
@@ -189,15 +230,34 @@ if __name__ == '__main__':
                         scene.is_move[1] = not scene.is_move[1]
             if i.type == pygame.USEREVENT:
                 if i.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if i.ui_element == start_game:
-                        if controller == 0:
+                    if controller == 0:
+                        if i.ui_element == start_game:
                             controller = 1
                             scene = Game()
-                    if i.ui_element == exit_btn:
-                        if controller == 0:
-                            sys.exit(0)
+                        if i.ui_element == exit_btn:
+                            if controller == 0:
+                                sys.exit(0)
+                        if i.ui_element == info_btn:
+                            controller = 3
+                            scene = Info()
+                        if i.ui_element == shop_btn:
+                            controller = 4
+                            scene = Shop()
+                    if controller == 3:
+                        if i.ui_element == scene.main_menu_btn:
+                            controller = 0
+                            scene = MainMenu()
+                            scene.render_menu()
+                    if controller == 4:
+                        if i.ui_element == scene.main_menu_btn:
+                            controller = 0
+                            scene = MainMenu()
+                            scene.render_menu()
 
-            manager.process_events(i)
+            if controller == 0:
+                manager.process_events(i)
+            elif controller in (3, 4):
+                scene.manager.process_events(i)
 
         if controller == 1:
             scene.loop_event()
@@ -209,3 +269,6 @@ if __name__ == '__main__':
         if controller == 0:
             manager.update(clock.tick(FPS) / 1000.0)
             manager.draw_ui(screen)
+        elif controller in (3, 4):
+            scene.manager.update(clock.tick(FPS) / 1000.0)
+            scene.manager.draw_ui(screen)
