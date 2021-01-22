@@ -20,18 +20,34 @@ class Shop:
     def __init__(self):
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
-        self.text1 = self.font.render('The game you must control', True, pygame.Color('white'))
 
         self.manager = pygame_gui.UIManager((700, 600))
 
         self.main_menu_btn = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((290, 400), (100, 50)),
+            relative_rect=pygame.Rect((10, 10), (100, 50)),
             text='Back',
             manager=self.manager
         )
 
+        self.car1_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((50, 70), (190, 490)),
+            text='Car1 (Standart)',
+            manager=self.manager
+        )
+
+        self.car2_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((250, 70), (190, 490)),
+            text='Car2 (Cost: 1000$)',
+            manager=self.manager
+        )
+
+        self.car3_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((450, 70), (190, 490)),
+            text='Car3 (Cost: 10000$)',
+            manager=self.manager
+        )
+
         screen.blit(self.bg, (0, 0))
-        screen.blit(self.text1, (80, 50))
 
 
 class Info:
@@ -58,11 +74,22 @@ class Game:
     def __init__(self):
         self.all_sprites = pygame.sprite.Group()
 
+        reader = open('player_sprite.txt', 'r', encoding='utf-8')
+        sprite_name = reader.readlines()[0].strip()
+        reader.close()
+
+        if sprite_name == 'player5.jpg':
+            car_size = [90, 130]
+        elif sprite_name == 'car2.jpg':
+            car_size = [90, 130]
+        elif sprite_name == 'car3.jpg':
+            car_size = [120, 150]
+
         self.player = pygame.sprite.Sprite()
-        self.player.image = load_image('player5.jpg', [90, 130])
+        self.player.image = load_image(sprite_name, [90, 130])
         self.player.rect = self.player.image.get_rect()
         self.player.rect.x, self.player.rect.y = 300, 300
-        self.player.mask = pygame.mask.from_surface(self.player.image)  ##
+        self.player.mask = pygame.mask.from_surface(self.player.image)
 
         self.is_move = [False, False]
 
@@ -75,6 +102,12 @@ class Game:
         screen.blit(self.bg, (0, 0))
 
         self.render_counter, self.render_speed, self.speed_x, self.speed_y = int(), 150, 3, 1
+
+        if sprite_name == 'car2.png':
+            self.speed_x = 4
+        elif sprite_name == 'car3.jpg':
+            self.speed_x = 5
+
         self.score = int()
 
     def loop_event(self):
@@ -145,7 +178,7 @@ class GameOver:
         screen.blit(text3, (280, 380))
 
 
-def load_image(name, size=False, rotate=False):
+def load_image(name, size=False):
     full_name = os.path.join('data', name)
 
     image = pygame.image.load(full_name)
@@ -168,6 +201,11 @@ if __name__ == '__main__':
     clock, FPS = pygame.time.Clock(), 30
 
     controller = int()
+
+    reader = open('player_sprite.txt', 'r', encoding='utf-8')
+    sprite_name = reader.readlines()[0].strip()
+    reader.close()
+
     if controller == 0:
         scene = MainMenu()
         scene.render_menu()
@@ -253,6 +291,18 @@ if __name__ == '__main__':
                             controller = 0
                             scene = MainMenu()
                             scene.render_menu()
+                        elif i.ui_element == scene.car1_btn:
+                            reader = open('player_sprite.txt', 'w', encoding='utf-8')
+                            sprite_name = reader.write('player5.jpg')
+                            reader.close()
+                        elif i.ui_element == scene.car2_btn:
+                            reader = open('player_sprite.txt', 'w', encoding='utf-8')
+                            sprite_name = reader.write('car2.jpg')
+                            reader.close()
+                        elif i.ui_element == scene.car3_btn:
+                            reader = open('player_sprite.txt', 'w', encoding='utf-8')
+                            sprite_name = reader.write('car3.jpg')
+                            reader.close()
 
             if controller == 0:
                 manager.process_events(i)
