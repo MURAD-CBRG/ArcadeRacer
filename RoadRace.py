@@ -116,7 +116,12 @@ class Game:
         if self.render_counter >= self.render_speed:
             self.box_base.append(pygame.sprite.Sprite())
             enemy_sprite = random.choice(['enemy1.jpg', 'box1.jpg'])
-            self.box_base[-1].image = load_image(enemy_sprite, [140, 120])
+
+            if random.randint(0, 10) == 6:
+                self.box_base[-1].image = load_image('money.jpg', [30, 30])
+            else:
+                self.box_base[-1].image = load_image(enemy_sprite, [140, 120])
+
             self.box_base[-1].rect = self.box_base[-1].image.get_rect()
             self.box_base[-1].rect.x, self.box_base[-1].rect.y = random.randint(20, 590), random.randint(0, 0)
             self.box_base[-1].mask = pygame.mask.from_surface(self.box_base[-1].image)
@@ -133,8 +138,20 @@ class Game:
         self.score += 1
 
         for i in range(len(self.box_base)):
-            if pygame.sprite.collide_mask(self.player, self.box_base[i]):
+            if pygame.sprite.collide_mask(self.player, self.box_base[i]) and self.box_base[i].sprite in \
+                    ('enemy1.jpg', 'box1.jpg'):
                 flag = True
+            elif pygame.sprite.collide_mask(self.player, self.box_base[i]) and self.box_base[i].sprite == 'money.jpg':
+                reader = open('money_count.txt', 'r', encoding='utf-8')
+                writer = open('money_count.txt', 'w', encoding='utf-8')
+
+                reader = int(reader.readlines()[0].strip())
+
+                writer.write(str(reader + 100))
+
+                reader.close()
+                writer.close()
+
             self.box_base[i].rect.y += self.speed_y
 
         if self.is_move[0] and self.player.rect.x > 20:
@@ -188,6 +205,26 @@ def load_image(name, size=False):
         image = pygame.transform.scale(image, size)
 
     return image
+
+
+def loader_img(sprite_name, cost):
+    reader = open('money_count.txt', 'r', encoding='utf-8')
+
+    information = int(reader.readlines()[0].strip())
+
+    font = pygame.font.Font('data/fonts/impact.ttf', 22)
+
+    if information >= cost:
+        writer = open('player_sprite.txt', 'w', encoding='utf-8')
+        sprite_name = writer.write(sprite_name)
+        writer.close()
+        text = font.render("Bought have been success", True, pygame.Color('white'))
+    else:
+        text = font.render("You can't bought the car", True, pygame.Color('white'))
+
+    screen.blit(text, [20, 570])
+
+    reader.close()
 
 
 if __name__ == '__main__':
@@ -292,17 +329,11 @@ if __name__ == '__main__':
                             scene = MainMenu()
                             scene.render_menu()
                         elif i.ui_element == scene.car1_btn:
-                            reader = open('player_sprite.txt', 'w', encoding='utf-8')
-                            sprite_name = reader.write('player5.jpg')
-                            reader.close()
+                            loader_img('player5.jpg', 0)
                         elif i.ui_element == scene.car2_btn:
-                            reader = open('player_sprite.txt', 'w', encoding='utf-8')
-                            sprite_name = reader.write('car2.jpg')
-                            reader.close()
+                            loader_img('car2.jpg', 5000)
                         elif i.ui_element == scene.car3_btn:
-                            reader = open('player_sprite.txt', 'w', encoding='utf-8')
-                            sprite_name = reader.write('car3.jpg')
-                            reader.close()
+                            loader_img('car3.jpg', 10000)
 
             if controller == 0:
                 manager.process_events(i)
