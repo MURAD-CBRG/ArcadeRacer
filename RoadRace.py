@@ -6,10 +6,10 @@ import pygame_gui
 
 
 class MainMenu:
-    def __init__(self):
+    def __init__(self, color):
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
-        self.text = self.font.render('Main menu', True, pygame.Color('white'))
+        self.text = self.font.render('Main menu', True, pygame.Color(color))
 
     def render_menu(self):
         screen.blit(self.bg, (0, 0))
@@ -139,6 +139,7 @@ class Game:
         self.render_speed = 150
         self.speed_x = 3
         self.speed_y = 1
+        self.speed_tech = 0
 
         if sprite_name == 'car2.png':
             self.speed_x = 4
@@ -146,9 +147,35 @@ class Game:
             self.speed_x = 5
 
         self.score = int()
+        self.font = pygame.font.Font('data/fonts/impact.ttf', 28)
 
     def loop_event(self):
         self.render_counter += 1
+
+        if self.speed_tech < 100:
+            self.speed_tech += 0.1
+
+        best_record_file = open('base_score.txt', mode='r', encoding='utf-8')
+        best_record_text = best_record_file.readlines()[0].strip()
+        best_record_file.close()
+
+        self.text_score = self.font.render(
+            f'Score: {str(self.score // 10)}',
+            True,
+            pygame.Color('white')
+        )
+
+        self.text_speed = self.font.render(
+            f'Speed: {str(int(self.speed_tech))} km/h',
+            True,
+            pygame.Color('red')
+        )
+
+        self.best_score = self.font.render(
+            f'Your best score: {best_record_text}',
+            True,
+            pygame.Color('orange')
+        )
 
         if self.render_counter >= self.render_speed:
             enemy_sprite = random.choice(['enemy1.jpg', 'box1.jpg'])
@@ -215,6 +242,10 @@ class Game:
         screen.blit(self.bg, (0, 0))
 
         self.all_sprites.draw(screen)
+
+        screen.blit(self.text_score, (10, 550))
+        screen.blit(self.text_speed, (500, 550))
+        screen.blit(self.best_score, (200, 550))
 
         if flag:
             global controller
@@ -365,6 +396,20 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     FPS = 30
 
+    pygame.mixer.music.load('data/main_theme.mp3')
+    pygame.mixer.music.play(-1)
+
+    colors = (
+        'yellow',
+        'red',
+        'blue',
+        'pink',
+        'white',
+        'gray',
+        'orange',
+        'green'
+    )
+
     controller = int()
 
     reader = open('player_sprite.txt', 'r', encoding='utf-8')
@@ -372,7 +417,7 @@ if __name__ == '__main__':
     reader.close()
 
     if controller == 0:
-        scene = MainMenu()
+        scene = MainMenu(random.choice(colors))
         scene.render_menu()
 
         manager = pygame_gui.UIManager((700, 600))
@@ -423,7 +468,7 @@ if __name__ == '__main__':
                         scene = Game()
                     if controller == 2:
                         controller = 0
-                        scene = MainMenu()
+                        scene = MainMenu(random.choice(colors))
                         scene.render_menu()
             if i.type == pygame.KEYUP:
                 if controller == 1:
@@ -449,12 +494,12 @@ if __name__ == '__main__':
                     if controller == 3:
                         if i.ui_element == scene.main_menu_btn:
                             controller = 0
-                            scene = MainMenu()
+                            scene = MainMenu(random.choice(colors))
                             scene.render_menu()
                     if controller == 4:
                         if i.ui_element == scene.main_menu_btn:
                             controller = 0
-                            scene = MainMenu()
+                            scene = MainMenu(random.choice(colors))
                             scene.render_menu()
                         elif i.ui_element == scene.car1_btn:
                             loader_img('player5.jpg', 0)
