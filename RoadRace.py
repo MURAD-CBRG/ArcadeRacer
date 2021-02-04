@@ -81,18 +81,22 @@ class Info:
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
         self.text1 = self.font.render('The game you must control', True, pygame.Color('white'))
         self.text2 = self.font.render('with Marks on keyboard', True, pygame.Color('white'))
+        self.text3 = self.font.render('Cost money and', True, pygame.Color('white'))
+        self.text4 = self.font.render('Buy new cars and roads in Shop', True, pygame.Color('white'))
 
         self.manager = pygame_gui.UIManager((700, 600))
 
         self.main_menu_btn = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((290, 400), (100, 50)),
+            relative_rect=pygame.Rect((290, 450), (100, 50)),
             text='Back',
             manager=self.manager
         )
 
         screen.blit(self.bg, (0, 0))
         screen.blit(self.text1, (80, 150))
-        screen.blit(self.text2, (120, 200))
+        screen.blit(self.text2, (120, 250))
+        screen.blit(self.text3, (80, 300))
+        screen.blit(self.text4, (40, 350))
 
 
 class Game:
@@ -292,7 +296,7 @@ def loader_img(sprite_name, cost):
 
             text = font.render("Bought have been success", True, pygame.Color('white'))
 
-            appender_file = open('car_base.txt', 'r', encoding='utf-8')
+            appender_file = open('car_base.txt', 'a', encoding='utf-8')
             appender_file.write(sprite_name + '\n')
             appender_file.close()
         else:
@@ -339,7 +343,7 @@ def loader_img_road(sprite_name, cost):
 
             text = font.render("Bought have been success", True, pygame.Color('white'))
 
-            appender_file = open('road_base.txt', 'r', encoding='utf-8')
+            appender_file = open('road_base.txt', 'a', encoding='utf-8')
             appender_file.write(sprite_name + '\n')
             appender_file.close()
         else:
@@ -358,7 +362,8 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('RoadRace')
 
-    clock, FPS = pygame.time.Clock(), 30
+    clock = pygame.time.Clock()
+    FPS = 30
 
     controller = int()
 
@@ -458,11 +463,11 @@ if __name__ == '__main__':
                         elif i.ui_element == scene.car3_btn:
                             loader_img('car3.jpg', 10000)
                         elif i.ui_element == scene.road1_btn:
-                            loader_img('road4.jpg', 0)
+                            loader_img_road('road4.jpg', 0)
                         elif i.ui_element == scene.road2_btn:
-                            loader_img('road2.jpg', 5000)
+                            loader_img_road('road2.jpg', 5000)
                         elif i.ui_element == scene.road3_btn:
-                            loader_img('road.jpg', 10000)
+                            loader_img_road('road.jpg', 10000)
             if controller == 0:
                 manager.process_events(i)
             elif controller in (3, 4):
