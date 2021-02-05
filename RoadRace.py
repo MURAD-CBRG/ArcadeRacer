@@ -5,7 +5,7 @@ import random
 import pygame_gui
 
 
-class MainMenu:
+class MainMenu:  # Класс игрового меню
     def __init__(self, color):
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
@@ -16,7 +16,7 @@ class MainMenu:
         screen.blit(self.text, (230, 150))
 
 
-class Shop:
+class Shop:  # Класс игрового магазина
     def __init__(self):
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
@@ -27,7 +27,7 @@ class Shop:
 
         self.money_text = self.font.render(money_information + '$', True, pygame.Color('white'))
 
-        self.manager = pygame_gui.UIManager((700, 600))
+        self.manager = pygame_gui.UIManager((700, 600))  #
 
         self.main_menu_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((10, 10), (100, 50)),
@@ -75,7 +75,7 @@ class Shop:
         screen.blit(self.money_text, (350, 10))
 
 
-class Info:
+class Info:  # Класс меню с правилами игры
     def __init__(self):
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
@@ -99,7 +99,7 @@ class Info:
         screen.blit(self.text4, (40, 350))
 
 
-class Game:
+class Game:  # Класс игрового процесса
     def __init__(self):
         self.all_sprites = pygame.sprite.Group()
 
@@ -149,7 +149,7 @@ class Game:
         self.score = int()
         self.font = pygame.font.Font('data/fonts/impact.ttf', 28)
 
-    def loop_event(self):
+    def loop_event(self):  # Функция осуществляющая игровой процесс
         self.render_counter += 1
 
         if self.speed_tech < 100:
@@ -188,7 +188,8 @@ class Game:
                     self.money_base[-1].image = load_image('money.jpg', [30, 30])
 
                 self.money_base[-1].rect = self.money_base[-1].image.get_rect()
-                self.money_base[-1].rect.x, self.money_base[-1].rect.y = random.randint(20, 590), random.randint(0, 0)
+                self.money_base[-1].rect.x, self.money_base[-1].rect.y = random.randint(20, 590), \
+                                                                         random.randint(0, 0)
                 self.money_base[-1].mask = pygame.mask.from_surface(self.money_base[-1].image)
                 self.all_sprites.add(self.money_base[-1])
             else:
@@ -199,7 +200,8 @@ class Game:
                     self.box_base[-1].image = load_image(enemy_sprite, [140, 120])
 
                 self.box_base[-1].rect = self.box_base[-1].image.get_rect()
-                self.box_base[-1].rect.x, self.box_base[-1].rect.y = random.randint(20, 590), random.randint(0, 0)
+                self.box_base[-1].rect.x, self.box_base[-1].rect.y = random.randint(20, 590), \
+                                                                     random.randint(0, 0)
                 self.box_base[-1].mask = pygame.mask.from_surface(self.box_base[-1].image)
                 self.all_sprites.add(self.box_base[-1])
 
@@ -254,7 +256,7 @@ class Game:
             scene = GameOver(self.score)
 
 
-class GameOver:
+class GameOver:  # Класс заставки окончания игры
     def __init__(self, score):
         bg = load_image('game_over_bg.jpg', SCREEN_SIZE)
         self.score = score // 10
@@ -269,7 +271,13 @@ class GameOver:
             self.best_score = self.score
 
         font = pygame.font.Font('data/fonts/impact.ttf', 36)
-        text1 = font.render('Game Over! Enter "Space" to go to main menu!', True, pygame.Color('white'))
+
+        text1 = font.render(
+            'Game Over! Enter "Space" to go to main menu!',
+            True,
+            pygame.Color('white')
+        )
+
         text2 = font.render(f'Your score: {self.score}', True, pygame.Color('white'))
         text3 = font.render(f'Best score: {self.best_score}', True, pygame.Color('white'))
 
@@ -279,7 +287,7 @@ class GameOver:
         screen.blit(text3, (280, 380))
 
 
-def load_image(name, size=False):
+def load_image(name, size=False):  # Функция загрузки изображений
     full_name = os.path.join('data', name)
 
     image = pygame.image.load(full_name)
@@ -291,7 +299,7 @@ def load_image(name, size=False):
     return image
 
 
-def loader_img(sprite_name, cost):
+def loader_img_car(sprite_name, cost):  # Функция загрузки автомобиля
     reader = open('money_count.txt', 'r', encoding='utf-8')
 
     information = int(reader.readlines()[0].strip())
@@ -338,7 +346,7 @@ def loader_img(sprite_name, cost):
     reader.close()
 
 
-def loader_img_road(sprite_name, cost):
+def loader_img_road(sprite_name, cost):  # Функция загрузки дороги
     reader = open('money_count.txt', 'r', encoding='utf-8')
 
     information = int(reader.readlines()[0].strip())
@@ -388,13 +396,13 @@ def loader_img_road(sprite_name, cost):
 if __name__ == '__main__':
     pygame.init()
 
-    SCREEN_SIZE = [700, 600]
+    SCREEN_SIZE = [700, 600]  # Константа с размерами экрана
 
     screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('RoadRace')
 
     clock = pygame.time.Clock()
-    FPS = 30
+    FPS = 30  # Константа с FPS игры
 
     pygame.mixer.music.load('data/main_theme.mp3')
     pygame.mixer.music.play(-1)
@@ -410,7 +418,7 @@ if __name__ == '__main__':
         'green'
     )
 
-    controller = int()
+    controller = int()  # Переменная содержащая номер текущей сцены
 
     reader = open('player_sprite.txt', 'r', encoding='utf-8')
     sprite_name = reader.readlines()[0].strip()
@@ -502,11 +510,11 @@ if __name__ == '__main__':
                             scene = MainMenu(random.choice(colors))
                             scene.render_menu()
                         elif i.ui_element == scene.car1_btn:
-                            loader_img('player5.jpg', 0)
+                            loader_img_car('player5.jpg', 0)
                         elif i.ui_element == scene.car2_btn:
-                            loader_img('car2.jpg', 5000)
+                            loader_img_car('car2.jpg', 5000)
                         elif i.ui_element == scene.car3_btn:
-                            loader_img('car3.jpg', 10000)
+                            loader_img_car('car3.jpg', 10000)
                         elif i.ui_element == scene.road1_btn:
                             loader_img_road('road4.jpg', 0)
                         elif i.ui_element == scene.road2_btn:
