@@ -4,7 +4,7 @@
   Правила игры очень просты - необходимо управлять автомобилем так, чтобы не столкнуться с каким-нибудь препятствием. <br>
   Вы можете заработать деньги и купить новые трассы и автомобили
 </p>
-![Image alt](https://github.com/MURAD-CBRG/ArcadeRacer/tree/master/INFORMATION/1.png)
+![](https://github.com/MURAD-CBRG/ArcadeRacer/tree/master/INFORMATION/1.png)
 <h1>Управление</h1>
 <p>
 Управление автомобилем осуществляется с помошью стрелок на клавиатуре.<br>
