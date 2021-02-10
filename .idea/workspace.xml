@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="777e3913-2954-4920-8284-f936780d9bea" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RoadRace.py" beforeDir="false" afterPath="$PROJECT_DIR$/RoadRace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bg.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player_sprite.txt" beforeDir="false" afterPath="$PROJECT_DIR$/player_sprite.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/RoadRace 2021-02-06 18-00-18.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (130).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (131).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (132).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (133).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (134).png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RoadRace.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="562" lean-forward="true" selection-start-line="562" selection-end-line="562" />
+            <state relative-caret-position="465">
+              <caret line="562" selection-start-line="562" selection-end-line="562" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -174,7 +177,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.328594" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34597155" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34597155" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -199,8 +202,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RoadRace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="562" lean-forward="true" selection-start-line="562" selection-end-line="562" />
+        <state relative-caret-position="465">
+          <caret line="562" selection-start-line="562" selection-end-line="562" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
