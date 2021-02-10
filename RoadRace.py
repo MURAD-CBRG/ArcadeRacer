@@ -547,8 +547,9 @@ if __name__ == '__main__':
 
         if controller == 1:
             scene.loop_event()
-            scene.manager.update(clock.tick(FPS) / 1000.0)
-            scene.manager.draw_ui(screen)
+            if controller == 1:
+                scene.manager.update(clock.tick(FPS) / 1000.0)
+                scene.manager.draw_ui(screen)
 
         pygame.display.flip()
 

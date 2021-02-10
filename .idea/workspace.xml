@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="777e3913-2954-4920-8284-f936780d9bea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/INFORMATION/RoadRace 2021-02-06 18-00-18.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (130).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (131).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (132).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (133).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INFORMATION/Снимок экрана (134).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INFORMATION/present.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/INFORMATION/present.pptx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RoadRace.py" beforeDir="false" afterPath="$PROJECT_DIR$/RoadRace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bg.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player_sprite.txt" beforeDir="false" afterPath="$PROJECT_DIR$/player_sprite.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/RoadRace.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="465">
-              <caret line="562" selection-start-line="562" selection-end-line="562" />
+              <caret line="563" selection-start-line="563" selection-end-line="563" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -203,7 +200,7 @@
     <entry file="file://$PROJECT_DIR$/RoadRace.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
-          <caret line="562" selection-start-line="562" selection-end-line="562" />
+          <caret line="563" selection-start-line="563" selection-end-line="563" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
