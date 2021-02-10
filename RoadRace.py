@@ -416,8 +416,8 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     FPS = 30  # Константа с FPS игры
 
-    pygame.mixer.music.load('data/main_theme.mp3')
-    pygame.mixer.music.play(-1)
+    # pygame.mixer.music.load('data/main_theme.mp3')
+    # pygame.mixer.music.play(-1)
 
     colors = (
         'yellow',
@@ -542,11 +542,13 @@ if __name__ == '__main__':
                             scene.render_menu()
             if controller == 0:
                 manager.process_events(i)
-            elif controller in (3, 4):
+            elif controller in (3, 4, 1):
                 scene.manager.process_events(i)
 
         if controller == 1:
             scene.loop_event()
+            scene.manager.update(clock.tick(FPS) / 1000.0)
+            scene.manager.draw_ui(screen)
 
         pygame.display.flip()
 
