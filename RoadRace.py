@@ -7,6 +7,7 @@ import pygame_gui
 
 class MainMenu:  # Класс игрового меню
     def __init__(self, color):
+        global SCREEN_SIZE
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
         self.text = self.font.render('Main menu', True, pygame.Color(color))
@@ -18,6 +19,7 @@ class MainMenu:  # Класс игрового меню
 
 class Shop:  # Класс игрового магазина
     def __init__(self):
+        global SCREEN_SIZE
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
 
@@ -27,7 +29,7 @@ class Shop:  # Класс игрового магазина
 
         self.money_text = self.font.render(money_information + '$', True, pygame.Color('white'))
 
-        self.manager = pygame_gui.UIManager((700, 600))  #
+        self.manager = pygame_gui.UIManager(SCREEN_SIZE)  #
 
         self.main_menu_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((10, 10), (100, 50)),
@@ -77,6 +79,7 @@ class Shop:  # Класс игрового магазина
 
 class Info:  # Класс меню с правилами игры
     def __init__(self):
+        global SCREEN_SIZE
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
         self.text1 = self.font.render('The game you must control', True, pygame.Color('white'))
@@ -84,7 +87,7 @@ class Info:  # Класс меню с правилами игры
         self.text3 = self.font.render('Cost money and', True, pygame.Color('white'))
         self.text4 = self.font.render('Buy new cars and roads in Shop', True, pygame.Color('white'))
 
-        self.manager = pygame_gui.UIManager((700, 600))
+        self.manager = pygame_gui.UIManager(SCREEN_SIZE)
 
         self.main_menu_btn = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((290, 450), (100, 50)),
@@ -101,6 +104,7 @@ class Info:  # Класс меню с правилами игры
 
 class Game:  # Класс игрового процесса
     def __init__(self):
+        global SCREEN_SIZE
         self.all_sprites = pygame.sprite.Group()
 
         reader = open('player_sprite.txt', 'r', encoding='utf-8')
@@ -148,6 +152,14 @@ class Game:  # Класс игрового процесса
 
         self.score = int()
         self.font = pygame.font.Font('data/fonts/impact.ttf', 28)
+
+        self.manager = pygame_gui.UIManager(SCREEN_SIZE)
+
+        self.back_menu_btn = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect((10, 10), (100, 50)),
+            text='Back',
+            manager=self.manager
+        )
 
     def loop_event(self):  # Функция осуществляющая игровой процесс
         self.render_counter += 1
@@ -507,7 +519,8 @@ if __name__ == '__main__':
                     if controller == 4:
                         if i.ui_element == scene.main_menu_btn:
                             controller = 0
-                            scene = MainMenu(random.choice(colors))
+                            random_color_menu = random.choice(colors)
+                            scene = MainMenu(random_color_menu)
                             scene.render_menu()
                         elif i.ui_element == scene.car1_btn:
                             loader_img_car('player5.jpg', 0)
@@ -521,6 +534,12 @@ if __name__ == '__main__':
                             loader_img_road('road2.jpg', 5000)
                         elif i.ui_element == scene.road3_btn:
                             loader_img_road('road.jpg', 10000)
+                    if controller == 1:
+                        if i.ui_element == scene.back_menu_btn:
+                            controller = 0
+                            random_color_menu = random.choice(colors)
+                            scene = MainMenu(random_color_menu)
+                            scene.render_menu()
             if controller == 0:
                 manager.process_events(i)
             elif controller in (3, 4):
@@ -536,6 +555,6 @@ if __name__ == '__main__':
         if controller == 0:
             manager.update(clock.tick(FPS) / 1000.0)
             manager.draw_ui(screen)
-        elif controller in (3, 4):
+        elif controller in (3, 4, 1):
             scene.manager.update(clock.tick(FPS) / 1000.0)
             scene.manager.draw_ui(screen)
