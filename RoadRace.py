@@ -136,6 +136,7 @@ class Game:  # Класс игрового процесса
         reader.close()
 
         self.bg = load_image(info_reader, SCREEN_SIZE)
+        self.bg_rotate = pygame.transform.rotate(self.bg, 180)
 
         screen.blit(self.bg, (0, 0))
 
@@ -151,6 +152,7 @@ class Game:  # Класс игрового процесса
             self.speed_x = 5
 
         self.score = int()
+        self.counter = True
         self.font = pygame.font.Font('data/fonts/impact.ttf', 28)
 
         self.manager = pygame_gui.UIManager(SCREEN_SIZE)
@@ -253,7 +255,12 @@ class Game:  # Класс игрового процесса
         elif self.is_move[1] and self.player.rect.x < 590:
             self.player.rect.x += self.speed_x
 
-        screen.blit(self.bg, (0, 0))
+        if self.counter:
+            screen.blit(self.bg, (0, 0))
+            self.counter = False
+        else:
+            screen.blit(self.bg_rotate, (0, 0))
+            self.counter = True
 
         self.all_sprites.draw(screen)
 
