@@ -7,6 +7,8 @@
     <list default="true" id="777e3913-2954-4920-8284-f936780d9bea" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RoadRace.py" beforeDir="false" afterPath="$PROJECT_DIR$/RoadRace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bg.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/money_count.txt" beforeDir="false" afterPath="$PROJECT_DIR$/money_count.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,14 +17,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.49121523">
+    <splitter split-orientation="horizontal" split-proportion="0.4714495">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/RoadRace.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="105">
-                  <caret line="139" selection-start-line="139" selection-end-line="139" />
+                <state relative-caret-position="346">
+                  <caret line="445" column="27" lean-forward="true" selection-start-line="445" selection-start-column="27" selection-end-line="445" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                   </folding>
@@ -33,12 +35,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/RoadRace.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="380">
-                  <caret line="256" lean-forward="true" selection-start-line="256" selection-end-line="256" />
+                <state relative-caret-position="-978">
+                  <caret line="403" column="57" lean-forward="true" selection-start-line="403" selection-start-column="57" selection-end-line="403" selection-end-column="57" />
                   <folding>
                     <element signature="e#0#13#0" expanded="true" />
                   </folding>
@@ -70,10 +72,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="106" />
-    <option name="y" value="27" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="151" />
+    <option name="y" value="175" />
+    <option name="width" value="696" />
+    <option name="height" value="503" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -192,7 +194,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.328594" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34597155" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22590837" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -206,6 +208,17 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/RoadRace.py</url>
+          <line>451</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/RoadRace — копия.py" />
     <entry file="file://$PROJECT_DIR$/../pygame_test_project/main.py">
@@ -217,8 +230,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RoadRace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="256" lean-forward="true" selection-start-line="256" selection-end-line="256" />
+        <state relative-caret-position="346">
+          <caret line="445" column="27" lean-forward="true" selection-start-line="445" selection-start-column="27" selection-end-line="445" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>

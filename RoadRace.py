@@ -3,6 +3,7 @@ import sys
 import os
 import random
 import pygame_gui
+import sqlite3
 
 
 class MainMenu:  # Класс игрового меню
@@ -23,11 +24,14 @@ class Shop:  # Класс игрового магазина
         self.bg = load_image('main_menu_bg.jpg', SCREEN_SIZE)
         self.font = pygame.font.Font('data/fonts/impact.ttf', 50)
 
-        money_base = open('money_count.txt', 'r', encoding='utf-8')
-        money_information = money_base.readlines()[0].strip()
-        money_base.close()
+        # money_base = open('money_count.txt', 'r', encoding='utf-8')
+        # money_information = money_base.readlines()[0].strip()
+        # money_base.close()
 
-        self.money_text = self.font.render(money_information + '$', True, pygame.Color('white'))
+        sql = '''SELECT money FROM DataCore WHERE id=1'''
+        money_information = cursor.execute(sql).fetchall()[0][0]
+
+        self.money_text = self.font.render(str(money_information) + '$', True, pygame.Color('white'))
 
         self.manager = pygame_gui.UIManager(SCREEN_SIZE)  #
 
@@ -107,9 +111,12 @@ class Game:  # Класс игрового процесса
         global SCREEN_SIZE
         self.all_sprites = pygame.sprite.Group()
 
-        reader = open('player_sprite.txt', 'r', encoding='utf-8')
-        sprite_name = reader.readlines()[0].strip()
-        reader.close()
+        # reader = open('player_sprite.txt', 'r', encoding='utf-8')
+        # sprite_name = reader.readlines()[0].strip()
+        # reader.close()
+
+        sql = '''SELECT current_player FROM DataCore WHERE id=1'''
+        sprite_name = cursor.execute(sql).fetchall()[0][0]
 
         if sprite_name == 'player5.jpg':
             car_size = [90, 130]
@@ -131,9 +138,12 @@ class Game:  # Класс игрового процесса
 
         self.all_sprites.add(self.player)
 
-        reader = open('bg.txt', 'r', encoding='utf-8')
-        info_reader = reader.readlines()[0].strip()
-        reader.close()
+        # reader = open('bg.txt', 'r', encoding='utf-8')
+        # info_reader = reader.readlines()[0].strip()
+        # reader.close()
+
+        sql = '''SELECT current_bg FROM DataCore WHERE id=1'''
+        info_reader = cursor.execute(sql).fetchall()[0][0]
 
         self.bg = load_image(info_reader, SCREEN_SIZE)
         self.bg_rotate = pygame.transform.rotate(self.bg, 180)
@@ -169,9 +179,12 @@ class Game:  # Класс игрового процесса
         if self.speed_tech < 100:
             self.speed_tech += 0.1
 
-        best_record_file = open('base_score.txt', mode='r', encoding='utf-8')
-        best_record_text = best_record_file.readlines()[0].strip()
-        best_record_file.close()
+        # best_record_file = open('base_score.txt', mode='r', encoding='utf-8')
+        # best_record_text = best_record_file.readlines()[0].strip()
+        # best_record_file.close()
+
+        sql = '''SELECT best_score FROM DataCore WHERE id=1'''
+        best_record_text = cursor.execute(sql).fetchall()[0][0]
 
         self.text_score = self.font.render(
             f'Score: {str(self.score // 10)}',
@@ -232,13 +245,22 @@ class Game:  # Класс игрового процесса
 
         for i in range(len(self.money_base)):
             if pygame.sprite.collide_mask(self.player, self.money_base[i]):
-                reader = open('money_count.txt', 'r', encoding='utf-8')
-                reader_info = int(reader.readlines()[0].strip())
-                reader.close()
+                # reader = open('money_count.txt', 'r', encoding='utf-8')
+                # reader_info = int(reader.readlines()[0].strip())
+                # reader.close()
 
-                writer = open('money_count.txt', 'w', encoding='utf-8')
-                writer.write(str(reader_info + 100))
-                writer.close()
+                sql = '''SELECT money FROM DataCore WHERE id=1'''
+                reader_info = int(cursor.execute(sql).fetchall()[0][0])
+
+                # writer = open('money_count.txt', 'w', encoding='utf-8')
+                # writer.write(str(reader_info + 100))
+                # writer.close()
+
+                money = reader_info + 100
+
+                sql = '''UPDATE DataCore SET money={} WHERE id=1'''.format(money)
+                data_base.execute(sql)
+                data_base.commit()
 
                 self.money_base[i].rect.y += 10 ** 3
 
@@ -279,14 +301,22 @@ class GameOver:  # Класс заставки окончания игры
     def __init__(self, score):
         bg = load_image('game_over_bg.jpg', SCREEN_SIZE)
         self.score = score // 10
-        saver = open('base_score.txt', 'r', encoding='utf-8')
-        self.best_score = saver.readlines()[0].strip()
-        saver.close()
+        # saver = open('base_score.txt', 'r', encoding='utf-8')
+        # self.best_score = saver.readlines()[0].strip()
+        # saver.close()
+
+        sql = '''SELECT best_score FROM DataCore WHERE id=1'''
+        self.best_score = cursor.execute(sql).fetchall()[0][0]
 
         if self.score > int(self.best_score):
-            saver = open('base_score.txt', 'w', encoding='utf-8')
-            saver.write(str(self.score))
-            saver.close()
+            # saver = open('base_score.txt', 'w', encoding='utf-8')
+            # saver.write(str(self.score))
+            # saver.close()
+            # self.best_score = self.score
+
+            sql = '''UPDATE DataCore SET best_score={} WHERE id=1'''.format(self.score)
+            data_base.execute(sql)
+            data_base.commit()
             self.best_score = self.score
 
         font = pygame.font.Font('data/fonts/impact.ttf', 36)
@@ -319,97 +349,161 @@ def load_image(name, size=False):  # Функция загрузки изобр�
 
 
 def loader_img_car(sprite_name, cost):  # Функция загрузки автомобиля
-    reader = open('money_count.txt', 'r', encoding='utf-8')
+    # reader = open('money_count.txt', 'r', encoding='utf-8')
+    # information = int(reader.readlines()[0].strip())
 
-    information = int(reader.readlines()[0].strip())
+    sql = '''SELECT money FROM DataCore WHERE id=1'''
+    information = int(cursor.execute(sql).fetchall()[0][0])
 
     font = pygame.font.Font('data/fonts/impact.ttf', 22)
 
     flag = True
 
-    data_base = open('car_base.txt', 'r', encoding='utf-8')
-    info_data_base = data_base.readlines()
+    # data_base = open('car_base.txt', 'r', encoding='utf-8')
+    # info_data_base = data_base.readlines()
+
+    sql = '''SELECT all_car FROM DataCore'''
+    information_copy = list(cursor.execute(sql).fetchall())
+    info_data_base = list()
+
+    for i in information_copy:
+        if i[0]:
+            info_data_base.append(i[0])
 
     for i in info_data_base:
         if i.strip() == sprite_name:
-            writer = open('player_sprite.txt', 'w', encoding='utf-8')
-            writer.write(sprite_name)
+            # writer = open('player_sprite.txt', 'w', encoding='utf-8')
+            # writer.write(sprite_name)
+
+            sql = '''UPDATE DataCore SET current_player="{}" WHERE id=1'''.format(sprite_name)
+            data_base.execute(sql)
+            data_base.commit()
+
             flag = False
 
-    data_base.close()
+    # data_base.close()
 
     if flag:
         if information >= cost:
-            writer = open('player_sprite.txt', 'w', encoding='utf-8')
-            writer.write(sprite_name)
-            writer.close()
+            # writer = open('player_sprite.txt', 'w', encoding='utf-8')
+            # writer.write(sprite_name)
+            # writer.close()
 
-            reader = open('money_count.txt', 'r', encoding='utf-8')
-            info_reader = int(reader.readlines()[0].strip())
-            reader.close()
+            sql = '''UPDATE DataCore SET current_player="{}" WHERE id=1'''.format(sprite_name)
+            data_base.execute(sql)
+            data_base.commit()
 
-            writer_money = open('money_count.txt', 'w', encoding='utf-8')
-            writer_money.write(str(info_reader - cost))
-            writer_money.close()
+            # reader = open('money_count.txt', 'r', encoding='utf-8')
+            # info_reader = int(reader.readlines()[0].strip())
+            # reader.close()
+
+            sql = '''SELECT money FROM DataCore WHERE id=1'''
+            info_reader = int(cursor.execute(sql).fetchall()[0][0])
+
+            # writer_money = open('money_count.txt', 'w', encoding='utf-8')
+            # writer_money.write(str(info_reader - cost))
+            # writer_money.close()
+
+            money = str(info_reader - cost)
+
+            sql = '''UPDATE DataCore SET money={} WHERE id=1'''.format(money)
+            data_base.execute(sql)
+            data_base.commit()
 
             text = font.render("Bought have been success", True, pygame.Color('white'))
 
-            appender_file = open('car_base.txt', 'a', encoding='utf-8')
-            appender_file.write(sprite_name + '\n')
-            appender_file.close()
+            # appender_file = open('car_base.txt', 'a', encoding='utf-8')
+            # appender_file.write(sprite_name + '\n')
+            # appender_file.close()
+
+            sql = '''INSERT INTO DataCore(all_car) VALUES("{}")'''.format(sprite_name)
+            data_base.execute(sql)
+            data_base.commit()
         else:
             text = font.render("You can't bought the car", True, pygame.Color('white'))
 
         screen.blit(text, [20, 570])
 
-    reader.close()
+    # reader.close()
 
 
 def loader_img_road(sprite_name, cost):  # Функция загрузки дороги
-    reader = open('money_count.txt', 'r', encoding='utf-8')
+    # reader = open('money_count.txt', 'r', encoding='utf-8')
+    # information = int(reader.readlines()[0].strip())
 
-    information = int(reader.readlines()[0].strip())
+    sql = '''SELECT money FROM DataCore WHERE id=1'''
+    information = int(cursor.execute(sql).fetchall()[0][0])
 
     font = pygame.font.Font('data/fonts/impact.ttf', 22)
 
     flag = True
 
-    data_base = open('road_base.txt', 'r', encoding='utf-8')
-    info_data_base = data_base.readlines()
+    # data_base = open('road_base.txt', 'r', encoding='utf-8')
+    # info_data_base = data_base.readlines()
+
+    sql = '''SELECT all_road FROM DataCore'''
+    information_copy = list(cursor.execute(sql).fetchall())
+    info_data_base = list()
+
+    for i in information_copy:
+        if i[0]:
+            info_data_base.append(i[0])
 
     for i in info_data_base:
         if i.strip() == sprite_name:
-            writer = open('bg.txt', 'w', encoding='utf-8')
-            writer.write(sprite_name)
+            # writer = open('bg.txt', 'w', encoding='utf-8')
+            # writer.write(sprite_name)
+
+            sql = '''UPDATE DataCore SET current_player="{}" WHERE id=1'''.format(sprite_name)
+            data_base.execute(sql)
+            data_base.commit()
+
             flag = False
 
-    data_base.close()
+    # data_base.close()
 
     if flag:
         if information >= cost:
-            writer = open('bg.txt', 'w', encoding='utf-8')
-            writer.write(sprite_name)
-            writer.close()
+            # writer = open('bg.txt', 'w', encoding='utf-8')
+            # writer.write(sprite_name)
+            # writer.close()
 
-            reader = open('money_count.txt', 'r', encoding='utf-8')
-            info_reader = int(reader.readlines()[0].strip())
-            reader.close()
+            sql = '''UPDATE DataCore SET current_bg="{}" WHERE id=1'''.format(sprite_name)
+            data_base.execute(sql)
+            data_base.commit()
 
-            writer_money = open('money_count.txt', 'w', encoding='utf-8')
-            writer_money.write(str(info_reader - cost))
-            writer_money.close()
+            # reader = open('money_count.txt', 'r', encoding='utf-8')
+            # info_reader = int(reader.readlines()[0].strip())
+            # reader.close()
+
+            sql = '''SELECT money FROM DataCore WHERE id=1'''
+            info_reader = int(cursor.execute(sql).fetchall()[0][0])
+
+            # writer_money = open('money_count.txt', 'w', encoding='utf-8')
+            # writer_money.write(str(info_reader - cost))
+            # writer_money.close()
+
+            money = str(info_reader - cost)
+
+            sql = '''UPDATE DataCore SET money={} WHERE id=1'''.format(money)
+            data_base.execute(sql)
+            data_base.commit()
 
             text = font.render("Bought have been success", True, pygame.Color('white'))
 
-            appender_file = open('road_base.txt', 'a', encoding='utf-8')
-            appender_file.write(sprite_name + '\n')
-            appender_file.close()
+            # appender_file = open('road_base.txt', 'a', encoding='utf-8')
+            # appender_file.write(sprite_name + '\n')
+            # appender_file.close()
+
+            sql = '''INSERT INTO DataCore(all_road) VALUES("{}")'''.format(sprite_name)
+            data_base.execute(sql)
+            data_base.commit()
         else:
             text = font.render("You can't bought the road", True, pygame.Color('white'))
 
         screen.blit(text, [20, 570])
 
-    reader.close()
+    # reader.close()
 
 
 if __name__ == '__main__':
@@ -421,7 +515,7 @@ if __name__ == '__main__':
     pygame.display.set_caption('RoadRace')
 
     clock = pygame.time.Clock()
-    FPS = 30  # Константа с FPS игры
+    FPS = 50  # Константа с FPS игры
 
     # pygame.mixer.music.load('data/main_theme.mp3')
     # pygame.mixer.music.play(-1)
@@ -439,9 +533,15 @@ if __name__ == '__main__':
 
     controller = int()  # Переменная содержащая номер текущей сцены
 
-    reader = open('player_sprite.txt', 'r', encoding='utf-8')
-    sprite_name = reader.readlines()[0].strip()
-    reader.close()
+    data_base = sqlite3.connect('data_base.db')
+    cursor = data_base.cursor()
+
+    # reader = open('player_sprite.txt', 'r', encoding='utf-8')
+    # sprite_name = reader.readlines()[0].strip()
+    # reader.close()
+
+    sql = '''SELECT money FROM DataCore WHERE id=1'''
+    sprite_name = cursor.execute(sql).fetchall()[0][0]
 
     if controller == 0:
         scene = MainMenu(random.choice(colors))
