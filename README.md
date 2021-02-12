@@ -45,3 +45,9 @@
   <img src="INFORMATION/4.png" width="350" alt="accessibility text">
   <img src="INFORMATION/5.png" width="350" alt="accessibility text">
 </p>
+
+<!-- Видео -->
+<h1>Видео</h1>
+<p align="center">
+	<video src="INFORMATION/6.mp4"></video>
+</p>
