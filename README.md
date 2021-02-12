@@ -38,4 +38,7 @@
 
 <!-- Изображения -->
 <h1>Изображения</h1>
-![alt text](https://raw.githubusercontent.com/MURAD-CBRG/ArcadeRacer/master/INFORMATION/1.png)
+<p align="center">
+  <img src="INFORMATION/1.png" width="350" title="hover text">
+  <img src="INFORMATION/2.png" width="350" alt="accessibility text">
+</p>
