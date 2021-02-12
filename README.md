@@ -41,4 +41,7 @@
 <p align="center">
   <img src="INFORMATION/1.png" width="350" title="hover text">
   <img src="INFORMATION/2.png" width="350" alt="accessibility text">
+  <img src="INFORMATION/3.png" width="350" alt="accessibility text">
+  <img src="INFORMATION/4.png" width="350" alt="accessibility text">
+  <img src="INFORMATION/5.png" width="350" alt="accessibility text">
 </p>
