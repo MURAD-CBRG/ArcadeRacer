@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="777e3913-2954-4920-8284-f936780d9bea" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RoadRace.py" beforeDir="false" afterPath="$PROJECT_DIR$/RoadRace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/road.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/road.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_base.db" beforeDir="false" afterPath="$PROJECT_DIR$/data_base.db" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,7 +17,20 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/RoadRace.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="431" lean-forward="true" selection-start-line="431" selection-end-line="431" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -38,9 +51,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="377" />
-    <option name="y" value="97" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="288" />
+    <option name="y" value="27" />
     <option name="width" value="696" />
     <option name="height" value="503" />
   </component>
@@ -153,7 +166,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="377" y="97" width="696" height="503" extended-state="0" />
+    <frame x="-8" y="32" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24963397" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -179,7 +193,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/RoadRace.py</url>
-          <line>384</line>
+          <line>387</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
@@ -196,8 +210,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RoadRace.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="295" column="9" selection-start-line="295" selection-start-column="9" selection-end-line="295" selection-end-column="9" />
+        <state relative-caret-position="305">
+          <caret line="431" lean-forward="true" selection-start-line="431" selection-end-line="431" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>

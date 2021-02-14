@@ -141,7 +141,7 @@ class Game:  # Класс игрового процесса
         self.render_counter = int()
         self.render_speed = 150
         self.speed_x = 3
-        self.speed_y = 1
+        self.speed_y = 5
         self.speed_tech = 10
 
         if sprite_name == 'car2.png':
@@ -162,6 +162,7 @@ class Game:  # Класс игрового процесса
         )
 
     def loop_event(self):  # Функция осуществляющая игровой процесс
+        global fps
         self.render_counter += 1
 
         if self.speed_tech < 100:
@@ -220,8 +221,10 @@ class Game:  # Класс игрового процесса
 
             if self.render_speed > 60:
                 self.render_speed -= 10
-            if self.speed_y < 12:
+            if self.speed_y < 20:
                 self.speed_y += 1
+                if self.speed_y == 10:
+                    fps += 10
 
         flag = False
 
@@ -425,10 +428,10 @@ if __name__ == '__main__':
     pygame.display.set_caption('RoadRace')
 
     clock = pygame.time.Clock()
-    FPS = 30  # Константа с FPS игры
+    fps = 20  # Константа с FPS игры
 
-    pygame.mixer.music.load('data/main_theme.mp3')  # Загрузка музыкы
-    pygame.mixer.music.play(-1)  # Проигрывание музыки без конца
+    #pygame.mixer.music.load('data/main_theme.mp3')  # Загрузка музыкы
+    #pygame.mixer.music.play(-1)  # Проигрывание музыки без конца
 
     colors = (
         'yellow',
@@ -556,16 +559,16 @@ if __name__ == '__main__':
         if controller == 1:
             scene.loop_event()
             if controller == 1:
-                scene.manager.update(clock.tick(FPS) / 1000.0)
+                scene.manager.update(clock.tick(fps) / 1000.0)
                 scene.manager.draw_ui(screen)
 
         pygame.display.flip()
 
-        clock.tick(FPS)
+        clock.tick(fps)
 
         if controller == 0:
-            manager.update(clock.tick(FPS) / 1000.0)
+            manager.update(clock.tick(fps) / 1000.0)
             manager.draw_ui(screen)
         elif controller in (3, 4, 1):
-            scene.manager.update(clock.tick(FPS) / 1000.0)
+            scene.manager.update(clock.tick(fps) / 1000.0)
             scene.manager.draw_ui(screen)
