@@ -4,12 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/RoadRace.py" line="179" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="777e3913-2954-4920-8284-f936780d9bea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RoadRace.py" beforeDir="false" afterPath="$PROJECT_DIR$/RoadRace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/road.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data/road.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_base.db" beforeDir="false" afterPath="$PROJECT_DIR$/data_base.db" afterDir="false" />
-    </list>
+    <list default="true" id="777e3913-2954-4920-8284-f936780d9bea" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +169,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.328594" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22590837" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22590837" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
